@@ -1,27 +1,49 @@
-def main(): 
+import sys
+
+
+def main():
     while True:
-        fraction = input("Fraction: ")
+        fraction = input("Fuel level (X/Y): ")
         try:
-            x,y = fraction.split("/")
-            x = int(x)
-            y = int(y)
-
-            if y ==0 or x>y:
-                raise ValueError
-            
-            percent = round((x/y)*100)
-
-            if percent >=99:
-                print("F")
-            elif percent <=1:
-                print("E")
-            else:
-                print(f"{percent}%")
-            break
-            
-        
+            pct = convert(fraction)
         except (ValueError, ZeroDivisionError):
-            pass
+            continue
+        else:
+            break
+ 
+    print(gauge(pct))
+
+
+
+def convert(fraction):
+    parts = fraction.split("/")
+    if len(parts) != 2:
+        raise ValueError("Invalid format")
+    x_str, y_str = parts
+    try:
+        x = int(x_str)
+        y = int(y_str)
+    except ValueError:
+        raise ValueError("Non-integer value")
+    if y == 0:
+        raise ZeroDivisionError("Division by zero")
+    if x > y:
+        raise ValueError("Numerator exceeds denominator")
+    if x < 0:
+        raise ValueError("X can't be a negative number")
+    return round((x / y) * 100)
+        
+        
+    
+def gauge(percent):
+
+    if percent <= 1:
+        return "E"
+    if percent >= 99:
+        return "F"
+    return f"{percent}%"
+
+
 
 if __name__ == "__main__":
     main()

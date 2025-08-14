@@ -1,10 +1,22 @@
-str = input("Input: ")
+def main():
 
-vowels = "aeouiAIOUE"
-result = ""
+    str = input("Input: ")
+    shorten_str = shorten(str)
+    print(shorten_str)
 
-for char in str:
-    if char not in vowels:
-        result += char
 
-print("Output: ", result)
+
+def shorten(word):
+
+    vowels = "aeouiAIOUE"
+    result = ""
+
+    for x in word:
+        if x not in vowels:
+            result += x
+    
+    return result
+
+
+if __name__ == "__main__" :
+    main()
